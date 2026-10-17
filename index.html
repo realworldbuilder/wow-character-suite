@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>WoW Character Suite</title>
+<meta name="description" content="Tools for your World of Warcraft characters' life outside the game: journals, year-in-review recaps and play guides you can share.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya+SC:wght@500;700&family=Alegreya+Sans:wght@400;500;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+/* Layout: short hub page. Name and promise, then one card per tool, then a plain note on where the suite is headed. */
+:root {
+  --bg: #eef1f6; --surface: #ffffff; --ink: #1b2033; --muted: #5a627a; --line: #d3d9e6;
+  --accent: #4b5fb0; --gold: #a77c00;
+  --f-display: "Alegreya SC", "Palatino Linotype", Georgia, serif;
+  --f-body: "Alegreya Sans", "Segoe UI", system-ui, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #0f1322; --surface: #171c30; --ink: #e6e9f4; --muted: #9aa3bf; --line: #2a3150; --accent: #9fb0ff; --gold: #ffd100; color-scheme: dark; }
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 17px; line-height: 1.55; }
+.wrap {
+  max-width: 1040px; margin: 0 auto;
+  padding-left: max(20px, env(safe-area-inset-left, 0px));
+  padding-right: max(20px, env(safe-area-inset-right, 0px));
+  padding-block: 56px 64px;
+  display: grid; gap: 48px;
+}
+h1, h2 { font-family: var(--f-display); font-weight: 700; margin: 0; text-wrap: balance; }
+h1 { font-size: clamp(2.4rem, 6vw, 3.6rem); line-height: 1.02; }
+h2 { font-size: 1.45rem; line-height: 1.15; }
+p { margin: 0; max-width: 62ch; }
+.eyebrow { font-family: var(--f-mono); font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+header { display: grid; gap: 14px; }
+.lede { font-size: 1.2rem; color: var(--muted); }
+.tools { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 16px; }
+.tool {
+  display: grid; grid-template-rows: auto auto 1fr auto; gap: 10px;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 22px;
+  color: inherit; text-decoration: none; min-width: 0;
+}
+a.tool:hover, a.tool:focus-visible { border-color: var(--accent); outline: none; }
+.tool .kind { font-family: var(--f-mono); font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--gold); }
+.tool p { color: var(--muted); font-size: .98rem; }
+.tool .go { font-weight: 700; color: var(--accent); font-size: .95rem; }
+.note { display: grid; gap: 8px; padding-top: 18px; border-top: 1px solid var(--line); }
+.note p { color: var(--muted); }
+footer { font-size: .85rem; color: var(--muted); display: grid; gap: 4px; }
+footer a { color: inherit; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">by realworldbuilder</div>
+    <h1>WoW Character Suite</h1>
+    <p class="lede">Your character's life outside the game: what they did, how they play, and the stories worth sharing with friends.</p>
+  </header>
+
+  <section class="tools" aria-label="Tools in the suite">
+    <a class="tool" href="https://github.com/realworldbuilder/rambleon">
+      <span class="kind">Journal</span>
+      <h2>Rambleon</h2>
+      <p>Your Azeroth adventure journal. A passive WoW AddOn plus a Mac companion that turns a night of play into a timeline, a story page and an AI-written chapter.</p>
+      <span class="go">View on GitHub →</span>
+    </a>
+    <a class="tool" href="https://github.com/realworldbuilder/wowwrapped">
+      <span class="kind">Year in review</span>
+      <h2>WoW Wrapped</h2>
+      <p>Spotify Wrapped for your World of Warcraft characters.</p>
+      <span class="go">View on GitHub →</span>
+    </a>
+    <a class="tool" href="./bars/">
+      <span class="kind">Play guide</span>
+      <h2>Action Bar Guide</h2>
+      <p>A level 30 Night Elf Hunter's bars, straight from the game. Hover any button for its tooltip and the reasoning behind the layout.</p>
+      <span class="go">Open the guide →</span>
+    </a>
+  </section>
+
+  <section class="note">
+    <div class="eyebrow">Where this is headed</div>
+    <p>These are separate projects today. The plan is one download that builds out each character's story, playstyle and highlights in one place, ready to share.</p>
+  </section>
+
+  <footer>
+    <span>World of Warcraft is a trademark of Blizzard Entertainment. This project is not affiliated with or endorsed by Blizzard.</span>
+    <span><a href="https://github.com/realworldbuilder/wow-character-suite">Source on GitHub</a></span>
+  </footer>
+</div>
+</body>
+</html>
