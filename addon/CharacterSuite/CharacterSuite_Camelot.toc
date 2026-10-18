@@ -1,0 +1,13 @@
+## Interface: 16001
+## Title: |cffd9a760CHARACTER SUITE|r
+## Notes: Your character's life outside the game. /suite bars captures your action bars for a shareable guide.
+## Author: William Hussey
+## Version: 0.1.0
+## IconTexture: Interface\Icons\INV_Misc_Book_09
+## SavedVariablesPerCharacter: CharacterSuiteDB
+## X-Website: https://realworldbuilder.github.io/wow-character-suite/
+## X-Category: Miscellaneous
+## X-Flavor: camelot
+
+Core.lua
+Bars.lua
