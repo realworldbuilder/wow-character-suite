@@ -1,0 +1,6 @@
+{
+  "name": "wow-character-suite",
+  "private": true,
+  "type": "module",
+  "scripts": { "build": "node tools/build.mjs", "test": "node tools/test.mjs" }
+}

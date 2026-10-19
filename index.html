@@ -45,6 +45,7 @@ header { display: grid; gap: 14px; }
   color: inherit; text-decoration: none; min-width: 0;
 }
 a.tool:hover, a.tool:focus-visible { border-color: var(--accent); outline: none; }
+code { font-family: var(--f-mono); font-size: .85em; }
 .tool .kind { font-family: var(--f-mono); font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--gold); }
 .tool p { color: var(--muted); font-size: .98rem; }
 .tool .go { font-weight: 700; color: var(--accent); font-size: .95rem; }
@@ -63,6 +64,18 @@ footer a { color: inherit; }
   </header>
 
   <section class="tools" aria-label="Tools in the suite">
+    <a class="tool" href="./make/">
+      <span class="kind">Make your own</span>
+      <h2>Bar Guide for your character</h2>
+      <p>Type <code>/suite bars</code> in game, drop two files on the page, add your reasons. Out comes one page anyone can hover, button by button. Runs in your browser; nothing is uploaded.</p>
+      <span class="go">Make yours →</span>
+    </a>
+    <a class="tool" href="./characters/rambleon-birdsong/">
+      <span class="kind">Example character</span>
+      <h2>Rambleon Birdsong</h2>
+      <p>A level 30 Night Elf Hunter: his bars, straight from the game, with links to his journal and his Wrapped.</p>
+      <span class="go">Open his page →</span>
+    </a>
     <a class="tool" href="https://github.com/realworldbuilder/rambleon">
       <span class="kind">Journal</span>
       <h2>Rambleon</h2>
@@ -75,23 +88,17 @@ footer a { color: inherit; }
       <p>Spotify Wrapped for your World of Warcraft characters.</p>
       <span class="go">View on GitHub →</span>
     </a>
-    <a class="tool" href="./bars/">
-      <span class="kind">Play guide</span>
-      <h2>Action Bar Guide</h2>
-      <p>A level 30 Night Elf Hunter's bars, straight from the game. Hover any button for its tooltip and the reasoning behind the layout.</p>
-      <span class="go">Open the guide →</span>
-    </a>
     <a class="tool" href="./keys/">
       <span class="kind">Play guide</span>
       <h2>Keyboard Heatmap</h2>
-      <p>The same Hunter's keybinds, colored by how often each key gets pressed. Flip from Before to After to see the fix, then copy the macros.</p>
+      <p>Rambleon's keybinds, colored by how often each key gets pressed. Flip from Before to After to see the fix, then copy the macros.</p>
       <span class="go">Open the heatmap →</span>
     </a>
   </section>
 
   <section class="note">
     <div class="eyebrow">Where this is headed</div>
-    <p>These are separate projects today. The plan is one download that builds out each character's story, playstyle and highlights in one place, ready to share.</p>
+    <p>One AddOn and this website, nothing else to install. The Bar Guide is the first piece; next, the character page gets your Wrapped and your journal, made from the same AddOn. Rambleon and WoW Wrapped stay available as the Mac way to do it today.</p>
   </section>
 
   <footer>

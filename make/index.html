@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Make Your Character Page</title>
+<meta name="description" content="Turn your World of Warcraft action bars into a shareable, hoverable guide. Runs in your browser; nothing is uploaded.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya+SC:wght@500;700&family=Alegreya+Sans:wght@400;500;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+/* Layout: how-to steps, a drop zone, then (once files are in) an editor on the left and a live preview of the exact
+   exported page on the right; stacked on phones. */
+:root {
+  --bg: #eef1f6; --surface: #ffffff; --ink: #1b2033; --muted: #5a627a; --line: #d3d9e6;
+  --accent: #4b5fb0; --gold: #a77c00; --key-bg: #e4e8f1; --key-ink: #2a3150; --warn: #9a4b00; --warn-bg: #fff4e5; --bad: #b42335;
+  --f-display: "Alegreya SC", "Palatino Linotype", Georgia, serif;
+  --f-body: "Alegreya Sans", "Segoe UI", system-ui, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1322; --surface: #171c30; --ink: #e6e9f4; --muted: #9aa3bf; --line: #2a3150;
+    --accent: #9fb0ff; --gold: #ffd100; --key-bg: #232a45; --key-ink: #d9def0; --warn: #ffc070; --warn-bg: #2e2312; --bad: #ff8a95; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1322; --surface: #171c30; --ink: #e6e9f4; --muted: #9aa3bf; --line: #2a3150;
+  --accent: #9fb0ff; --gold: #ffd100; --key-bg: #232a45; --key-ink: #d9def0; --warn: #ffc070; --warn-bg: #2e2312; --bad: #ff8a95; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { margin: 0; }
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 16px; line-height: 1.5; }
+.wrap { max-width: 1240px; margin: 0 auto; padding: 40px max(16px, env(safe-area-inset-right, 0px)) 64px max(16px, env(safe-area-inset-left, 0px)); display: grid; gap: 36px; }
+h1, h2, h3 { font-family: var(--f-display); font-weight: 700; margin: 0; text-wrap: balance; }
+h1 { font-size: clamp(2rem, 5vw, 3rem); line-height: 1.05; }
+h2 { font-size: 1.4rem; }
+h3 { font-size: 1.05rem; }
+p { margin: 0; max-width: 68ch; }
+a { color: var(--accent); }
+.eyebrow { font-family: var(--f-mono); font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+.eyebrow a { color: inherit; }
+.lede { color: var(--muted); font-size: 1.1rem; }
+header { display: grid; gap: 12px; }
+kbd, code { font-family: var(--f-mono); font-size: .8rem; background: var(--key-bg); color: var(--key-ink); border: 1px solid var(--line); border-radius: 5px; padding: 1px 6px; overflow-wrap: anywhere; }
+kbd { border-bottom-width: 3px; font-weight: 600; white-space: nowrap; }
+
+.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; counter-reset: step; padding: 0; margin: 0; list-style: none; }
+.steps li { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 18px; display: grid; gap: 8px; align-content: start; counter-increment: step; }
+.steps li::before { content: counter(step); font-family: var(--f-mono); font-weight: 600; color: var(--gold); font-size: .85rem; }
+.steps p { color: var(--muted); font-size: .95rem; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font: inherit; font-weight: 700; font-size: .95rem; padding: 9px 16px; border-radius: 8px; border: 1px solid var(--accent); background: var(--accent); color: var(--bg); cursor: pointer; text-decoration: none; }
+.btn.ghost { background: transparent; color: var(--accent); }
+.btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.btn[disabled] { opacity: .5; cursor: default; }
+
+.drop { border: 2px dashed var(--line); border-radius: 14px; background: var(--surface); padding: 32px 20px; display: grid; gap: 12px; justify-items: center; text-align: center; transition: border-color .12s, background .12s; }
+.drop.over { border-color: var(--accent); }
+.drop p { color: var(--muted); }
+.drop .row { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+.files { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+.files span { font-family: var(--f-mono); font-size: .75rem; padding: 3px 10px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); }
+.msg { border-radius: 10px; padding: 12px 16px; font-size: .95rem; }
+.msg.warn { background: var(--warn-bg); color: var(--warn); }
+.msg.bad { background: var(--warn-bg); color: var(--bad); }
+.privacy { font-size: .85rem; color: var(--muted); }
+
+.work { display: grid; grid-template-columns: minmax(300px, 400px) minmax(0, 1fr); gap: 24px; align-items: start; }
+@media (max-width: 900px) { .work { grid-template-columns: 1fr; } }
+.editor { display: grid; gap: 18px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 18px; }
+@media (min-width: 901px) { .editor { position: sticky; top: 16px; max-height: calc(100vh - 32px); overflow: auto; } }
+.field { display: grid; gap: 4px; }
+.field label, .lbl { font-size: .8rem; font-weight: 700; color: var(--muted); }
+input[type=text], textarea, select { font: inherit; font-size: .95rem; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 7px; padding: 7px 9px; width: 100%; min-width: 0; }
+textarea { resize: vertical; min-height: 64px; }
+input:focus, textarea:focus, select:focus { outline: 2px solid var(--accent); outline-offset: 0; border-color: transparent; }
+.group { display: grid; gap: 10px; padding-top: 14px; border-top: 1px solid var(--line); }
+.group > summary { cursor: pointer; font-family: var(--f-display); font-weight: 700; font-size: 1.05rem; }
+.group[open] > summary { margin-bottom: 6px; }
+.btn-row { display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 4px 10px; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--line); }
+.btn-row:last-child { border-bottom: 0; }
+.btn-row img, .btn-row .noicon { width: 34px; height: 34px; border-radius: 5px; grid-row: span 2; align-self: start; }
+.noicon { background: var(--key-bg); }
+.btn-row .top { display: flex; gap: 8px; align-items: baseline; min-width: 0; }
+.btn-row .top b { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.btn-row .top code { font-size: .7rem; flex: none; }
+.btn-row .inputs { display: grid; grid-template-columns: minmax(0, 1fr) 120px; gap: 6px; }
+.exports { display: grid; gap: 8px; }
+.exports .btn { width: 100%; }
+.preview { display: grid; gap: 10px; min-width: 0; }
+.preview-bar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.seg button { font: inherit; font-size: .85rem; padding: 6px 12px; border: 0; background: var(--surface); color: var(--muted); cursor: pointer; }
+.seg button[aria-pressed=true] { background: var(--accent); color: var(--bg); font-weight: 700; }
+iframe { width: 100%; border: 1px solid var(--line); border-radius: 12px; background: var(--bg); height: 1400px; display: block; }
+footer { font-size: .85rem; color: var(--muted); display: grid; gap: 4px; padding-top: 18px; border-top: 1px solid var(--line); }
+footer a { color: inherit; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow"><a href="../">WoW Character Suite</a> · Make your own</div>
+    <h1>Make your character page</h1>
+    <p class="lede">Your real action bars as a guide anyone can hover: every button, its key and your reason for it. Made from one command in game and two files.</p>
+  </header>
+
+  <ol class="steps" aria-label="How it works">
+    <li><h3>Get the AddOn</h3><p>Unzip it into <code>Interface/AddOns</code> inside your game folder, e.g. <code>World of Warcraft/_classic_beta_/</code>.</p><a class="btn ghost" id="addon-link" href="../downloads/CharacterSuite-0.1.0.zip" download>Download the AddOn</a></li>
+    <li><h3>Capture your bars</h3><p>In game, type <kbd>/suite bars</kbd>. It notes every button and takes a screenshot. Click <b>Reload</b> so WoW saves it.</p></li>
+    <li><h3>Drop two files here</h3><p><code>WTF/Account/…/&lt;Realm&gt;/&lt;Character&gt;/SavedVariables/CharacterSuite.lua</code> and the newest picture in <code>Screenshots/</code>.</p></li>
+    <li><h3>Add your reasons, download</h3><p>Write a note for any button, then download one page to host anywhere: GitHub Pages, Neocities, a Discord upload.</p></li>
+  </ol>
+
+  <section class="drop" id="drop" aria-label="Drop files">
+    <h2>Drop your files here</h2>
+    <p><code>CharacterSuite.lua</code>, the screenshot, and if you have one, the <code>.character.json</code> you downloaded last time to keep your notes.</p>
+    <div class="row">
+      <label class="btn"><input type="file" id="pick" multiple accept=".lua,.json,image/jpeg,image/png" hidden>Choose files</label>
+      <button class="btn ghost" type="button" id="sample">Try it with a sample</button>
+    </div>
+    <div class="files" id="files"></div>
+    <p class="privacy">Everything happens in this tab. Your files are never uploaded.</p>
+  </section>
+  <div id="messages" aria-live="polite"></div>
+
+  <section class="work" id="work" hidden>
+    <div class="editor" id="editor"></div>
+    <div class="preview">
+      <div class="preview-bar">
+        <div class="seg" role="group" aria-label="Preview">
+          <button type="button" data-view="character" aria-pressed="true">Character page</button>
+          <button type="button" data-view="bars" aria-pressed="false">Bar Guide only</button>
+        </div>
+        <span class="privacy" id="size"></span>
+      </div>
+      <iframe id="preview" title="Preview of your page"></iframe>
+    </div>
+  </section>
+
+  <footer>
+    <span><a href="../">WoW Character Suite</a> is free and open. <a href="https://github.com/realworldbuilder/wow-character-suite">Source on GitHub</a>.</span>
+    <span>World of Warcraft is a trademark of Blizzard Entertainment. This project is not affiliated with or endorsed by Blizzard.</span>
+  </footer>
+</div>
+<script type="module" src="make.js"></script>
+</body>
+</html>
