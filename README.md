@@ -8,6 +8,7 @@ Live site: https://realworldbuilder.github.io/wow-character-suite/
 
 - **[Make your own](https://realworldbuilder.github.io/wow-character-suite/make/)**: the Bar Guide for any character. Install the AddOn, type `/suite bars` in game, drop `CharacterSuite.lua` and the screenshot on the page, add your reasons, download one self-contained page. Everything runs in the browser; nothing is uploaded.
 - **[Rambleon Birdsong](https://realworldbuilder.github.io/wow-character-suite/characters/rambleon-birdsong/)**: the first character page, and his **[Action Bar Guide](https://realworldbuilder.github.io/wow-character-suite/bars/)** on its own.
+- **[Keyboard Heatmap](https://realworldbuilder.github.io/wow-character-suite/keys/)**: the same Hunter's keybinds as a heatmap, before and after fixing them, with the macros and rebinds to copy.
 - **[Rambleon](https://github.com/realworldbuilder/rambleon)**: an Azeroth adventure journal. A passive WoW AddOn plus a Mac companion.
 - **[WoW Wrapped](https://github.com/realworldbuilder/wowwrapped)**: Spotify Wrapped for your World of Warcraft characters.
 
