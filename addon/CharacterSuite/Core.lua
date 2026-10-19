@@ -27,12 +27,20 @@ function ns.Clean(v)
   return v
 end
 
-function ns.CleanString(v, max)
+-- One argument only: WoW APIs often return more than one value (UnitName gives name and surname on Forever),
+-- and a second parameter here would silently take it.
+function ns.CleanString(v)
   v = ns.Clean(v)
   if type(v) == "number" then v = tostring(v) end
   if type(v) ~= "string" or v == "" then return nil end
   v = v:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")
-  if max and #v > max then v = v:sub(1, max) end
+  return v
+end
+
+-- A string cut to at most `max` bytes.
+function ns.CleanText(v, max)
+  v = ns.CleanString(v)
+  if v and #v > max then v = v:sub(1, max) end
   return v
 end
 

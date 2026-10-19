@@ -34,7 +34,8 @@ end
 _G.Screenshot = function() shots = shots + 1; fire("SCREENSHOT_SUCCEEDED") end
 _G.time = os.time
 _G.date = os.date
-_G.UnitName = function(u) if u == "player" then return "Rambleon" elseif u == "pet" then return "Scarletfire" end end
+-- Like the real Forever client (build 70009+): two returns, the second being the surname. Helpers must not take it.
+_G.UnitName = function(u) if u == "player" then return "Rambleon", "Birdsong" elseif u == "pet" then return "Scarletfire", nil end end
 _G.UnitFullName = function(u) if u == "player" then return "Rambleon", "Birdsong" end end
 _G.GetRealmName = function() return "Classic Beta PvE" end
 _G.GetNormalizedRealmName = function() return "ClassicBetaPvE" end

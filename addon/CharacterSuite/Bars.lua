@@ -71,7 +71,7 @@ local function readAction(btn)
   if a.kind == "spell" and a.id then
     a.name = ns.CleanString(spellName(a.id))
     a.rank = ns.CleanString(spellRank(a.id))
-    a.description = ns.CleanString(spellDescription(a.id), ns.DESC_MAX)
+    a.description = ns.CleanText((spellDescription(a.id)), ns.DESC_MAX)
   elseif a.kind == "item" and a.id then
     a.name = ns.CleanString(itemName(a.id))
   elseif a.kind == "macro" and a.id then
@@ -93,7 +93,7 @@ local function readPet(i)
   end
   a.name = ns.CleanString(name)
   a.icon = ns.Clean(texture)
-  if a.id then a.rank = ns.CleanString(spellRank(a.id)); a.description = ns.CleanString(spellDescription(a.id), ns.DESC_MAX) end
+  if a.id then a.rank = ns.CleanString(spellRank(a.id)); a.description = ns.CleanText((spellDescription(a.id)), ns.DESC_MAX) end
   return a
 end
 
