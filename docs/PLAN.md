@@ -148,15 +148,20 @@ right icons, notes and roles editable, preview identical to the export), `/bars/
 visually the same as the hand-made original, the first character page, the hub's new cards. No sideways scroll at
 375 px. `node tools/test.mjs`: 11 tests.
 
-To verify in game (nothing here has met the real client yet):
-- `/suite bars` on Forever: the frame names, `btn.action`, `GetActionInfo`, `C_Spell.GetSpellSubtext` (ranks),
-  `GetPetActionInfo`, `GetBindingKey` and `SCREENSHOT_SUCCEEDED`; that the Reload popup is not in the picture.
-- That the screenshot's shape matches `UIParent` on a Retina Mac (the page warns when it does not), and that its
-  file name stamp is within 20 s of the AddOn's.
-- That `CharacterSuite.lua` survives a cold start well enough: the snapshot only has to reach disk once.
+Verified in game (2026-10-18, Forever, Rambleon Birdsong in Stormwind):
+- `/suite bars` captured 43 buttons on 4 bars: frame names, `btn.action`, `GetActionInfo`, ranks from
+  `C_Spell.GetSpellSubtext`, spell descriptions, `GetPetActionInfo` tokens, `GetBindingKey` all work.
+  `SCREENSHOT_SUCCEEDED` fired and the Reload popup was not in the picture.
+- The screen was 2560 x 1440 at UI scale 0.64 (2133 x 1200 UI units); the screenshot was the same shape and its
+  file name stamp matched the snapshot to the second. The page placed every hotspot on its button.
+- The first run threw: `UnitName("player")` returns the surname as a second value, which `CleanString` took as a
+  length limit. Fixed (one-argument `CleanString`, `CleanText` for cutting) and the stub now returns both values.
+- Still unchecked: a cold start (does the snapshot reach disk when the next login wipes SavedVariables? It only has
+  to be written once, by the Reload), another class, a stance bar, Action Bars 4-8.
 
 Known limits, for slice 2:
 - The crop is the box around every button: bars on the right edge make it a tall, mostly-world picture. Cut one
   picture per cluster of bars instead.
 - Callouts get one lane above and one below; a third overlapping bar loses its label (the pet bar in the sample).
-- Icons are cut from the screenshot, so cooldown swipes or a highlighted button show as they were.
+- Icons are cut from the screenshot, so they keep the keybind number in their corner (and any cooldown swipe).
+  The AddOn records each icon's file id; a clean icon needs a file id → icon source.
